@@ -5,6 +5,6 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("signup", views.signup, name="signup"),
     path("menu", views.menu, name="menu"),
-    #path('menu-items/', views.FoodListView.as_view(), name='foods'),
 ]

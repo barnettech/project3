@@ -12,19 +12,10 @@
         <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
       {% else %}
         <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+        <li><a href="{% url 'signup'%}">Register</a></li>
       {% endif %}
     </ul>
   {% endblock %}
-  <!--<header>
-    <h1>Django Simple Login</h1>
-    {% if user.is_authenticated %}
-      Hi {{ user.username }}!
-      <a href="{% url 'logout' %}">logout</a>
-    {% else %}
-      <a href="{% url 'login' %}">login</a>
-    {% endif %}
-  </header>
-  <hr>-->
   <main>
     {% block content %}
     {% endblock %}
