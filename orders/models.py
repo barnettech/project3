@@ -102,4 +102,4 @@ class Order(models.Model):
         """
         String for representing the Model object.
         """
-        return self.title
+        return f"order number: {self.order_number.id} {self.title}"
