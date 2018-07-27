@@ -1,12 +1,28 @@
 {% extends "base_generic.html" %}
 {% block content %}
 
-    <form action="" method="post">
+    <!--<form action="" method="post">
         {% csrf_token %}
         <table>
         {{ form }}
         </table>
         <input type="submit" value="Submit" />
+    </form>-->
+
+    <form action="" method="post">
+    {% csrf_token %}
+    <div>
+
+      {% for food in food_list %}
+      <div>
+         <input type="text" name="fooditem_{{food.id}}"
+               minlength="1" maxlength="3" placeholder="enter quantity"/><a href="{{ food.get_absolute_url }}">{{ food.title }}</a>
+      </div>
+      {% endfor %}
+
+    </div>
+    <input type="submit" value="Submit" />
     </form>
+
 
 {% endblock %}

@@ -62,7 +62,7 @@ class Food(models.Model):
         return self.title
 
 class Order_Number(models.Model):
-       def __str__(self):
+       def __int__(self):
         """
         String for representing the Model object.
         """

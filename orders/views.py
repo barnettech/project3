@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import Food
+from .models import Food, Order, Order_Number
 from .forms import OrderFoodForm
 import datetime
 
@@ -43,22 +43,33 @@ def order_from_menu(request):
     food_list=Food.objects.all()
     # If this is a POST request then process the Form data
     if request.method == 'POST':
-
+        ON = Order_Number()
+        ON.save()
+        for i in range(0,len(food_list)):
+            data = request.POST.get('fooditem_' + str(i))
+            if data:
+                print(data)
+                food = Food.objects.get(pk=i)
+                print(food)
+                O = Order(title=food, name=food, phone='888-777-7777', price='9.98', size='Large', food_type='PIZZA', order_number = ON)
+                O.save()
+           #print(data)
         # Create a form instance and populate it with data from the request (binding):
-        form = OrderFoodForm(request.POST)
+        #form = OrderFoodForm(request.POST)
 
         # Check if the form is valid:
-        if form.is_valid():
+        #if form.is_valid():
             # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
-            food_list.name = form.cleaned_data['renewal_date']
-            food_list.save()
+         #   food_list.name = form.cleaned_data['renewal_date']
+          #  food_list.save()
 
             # redirect to a new URL:
-            return HttpResponseRedirect(reverse('menu') )
+            #return HttpResponseRedirect(reverse('menu') )
 
     # If this is a GET (or any other method) create the default form.
     else:
         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
-        form = OrderFoodForm(initial={'renewal_date': proposed_renewal_date,})
+        #form = OrderFoodForm(initial={'renewal_date': proposed_renewal_date,})
 
-    return render(request, 'order_food_form.html', {'form': form, 'bookinst':food_list})
+    #return render(request, 'order_food_form.html', {'form': form, 'food_list':food_list})
+    return render(request, 'order_food_form.html', {'food_list':food_list})
