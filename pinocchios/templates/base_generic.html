@@ -21,7 +21,7 @@
             <li><a href="{% url 'signup'%}">Register</a></li>
           {% endif %}
         </ul>
-
+        {% if user.is_authenticated %}
         <div class="shopping-cart">
           <form action="submit_cart" method="post">
             <h3>Shopping Cart</h3>
@@ -30,9 +30,10 @@
                 <li>{{food}}</li>
               {% endfor %}
             </ul>
-            <input type="submit" value="Submit Cart" />
+            <input type="submit" value="Checkout" />
           </form>
         </div>
+        {% endif %}
 
         {% endblock %}
       </div>
