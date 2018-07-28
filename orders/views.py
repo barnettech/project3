@@ -14,7 +14,6 @@ def index(request):
     return render(request, 'index.html', {})
 
 def signup(request):
-    print('here')
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -41,6 +40,7 @@ def menu(request):
 
 def order_from_menu(request):
     food_list=Food.objects.all()
+    shopping_cart_food = {};
     # If this is a POST request then process the Form data
     if request.method == 'POST':
         ON = Order_Number()
@@ -48,28 +48,17 @@ def order_from_menu(request):
         for i in range(0,len(food_list)):
             data = request.POST.get('fooditem_' + str(i))
             if data:
-                print(data)
                 food = Food.objects.get(pk=i)
-                print(food)
-                O = Order(title=food, name=food, phone='888-777-7777', price='9.98', size='Large', food_type='PIZZA', order_number = ON)
+                persons_name = request.user.first_name + request.user.last_name
+                O = Order(title=food, username=request.user.username, name=persons_name, phone='888-777-7777', price='9.98', size='Large', food_type='PIZZA', order_number = ON)
                 O.save()
-           #print(data)
-        # Create a form instance and populate it with data from the request (binding):
-        #form = OrderFoodForm(request.POST)
+                #shopping_cart_food[food.title] = data
 
-        # Check if the form is valid:
-        #if form.is_valid():
-            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
-         #   food_list.name = form.cleaned_data['renewal_date']
-          #  food_list.save()
+    shopping_cart_food = Order.objects.filter(username=request.user.username, order_status='INCOMPLETE')
+    print(shopping_cart_food)
+    cart_count = Order.objects.filter(username=request.user.username, order_status='INCOMPLETE').count()
+    print(cart_count)
+    if cart_count < 1:
+        shopping_cart_food = 'Empty Cart'
 
-            # redirect to a new URL:
-            #return HttpResponseRedirect(reverse('menu') )
-
-    # If this is a GET (or any other method) create the default form.
-    else:
-        proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
-        #form = OrderFoodForm(initial={'renewal_date': proposed_renewal_date,})
-
-    #return render(request, 'order_food_form.html', {'form': form, 'food_list':food_list})
-    return render(request, 'order_food_form.html', {'food_list':food_list})
+    return render(request, 'order_food_form.html', {'food_list':food_list, 'shopping_cart_food':shopping_cart_food})

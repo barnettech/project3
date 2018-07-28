@@ -1,13 +1,18 @@
 {% extends "base_generic.html" %}
 {% block content %}
+    <form action="submit_cart" method="post">
+      <div class="shopping-cart">
+        <h3>Shopping Cart</h3>
+        <ul>
+          {% for food in shopping_cart_food %}
+            <li>{{food}}</li>
+          {% endfor %}
 
-    <!--<form action="" method="post">
-        {% csrf_token %}
-        <table>
-        {{ form }}
-        </table>
-        <input type="submit" value="Submit" />
-    </form>-->
+        </ul>
+
+      </div>
+      <input type="submit" value="Submit Cart" />
+    </form>
 
     <form action="" method="post">
     {% csrf_token %}
