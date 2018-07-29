@@ -64,5 +64,5 @@ def order_from_menu(request):
     return render(request, 'order_food_form.html', {'food_list':food_list, 'shopping_cart_food':shopping_cart_food})
 
 def checkout(request):
-
+    shopping_cart = Order.objects.filter(username=request.user.username, order_status='INCOMPLETE').update(order_status='FILLED')
     return render(request, 'thankyou.html', {'checkedout':1})

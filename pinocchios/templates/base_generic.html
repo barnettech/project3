@@ -26,13 +26,18 @@
         {% if user.is_authenticated and checkedout != 1 %}
         <div class="shopping-cart">
           <form action="checkout" method="post">
+            {% csrf_token %}
             <h3>Shopping Cart</h3>
             <ul>
-              {% for food in shopping_cart_food %}
-                <li>{{food}}</li>
-              {% endfor %}
+              {% if shopping_cart_food != "Empty Cart"  %}
+                {% for food in shopping_cart_food %}
+                  <li>{{food}}</li>
+                {% endfor %}
+               <input type="submit" value="Checkout" />
+              {% else %}
+                Your cart is empty
+              {% endif %}
             </ul>
-            <input type="submit" value="Checkout" />
           </form>
         </div>
         {% endif %}
