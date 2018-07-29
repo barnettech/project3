@@ -11,6 +11,8 @@ import datetime
 
 # Create your views here.
 def index(request):
+    if request.user.username is not None:
+      return redirect('order')
     return render(request, 'index.html', {})
 
 def signup(request):
@@ -22,7 +24,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('index')
+            return redirect('order')
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})

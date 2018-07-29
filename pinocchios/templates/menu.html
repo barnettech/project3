@@ -1,6 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+  {% if user.is_authenticated %}
     <h1>Pinocchios Zas Menu Items</h1>
 
     <h2>Foods on our Menu, (menu item count: {{food_count}})</h2>
@@ -15,5 +16,6 @@
     </ul>
 
     {{food_list}}
+  {% endif %}
 
 {% endblock %}
