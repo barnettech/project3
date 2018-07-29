@@ -23,9 +23,9 @@
             <li><a href="{% url 'signup'%}">Register</a></li>
           {% endif %}
         </ul>
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and checkedout != 1 %}
         <div class="shopping-cart">
-          <form action="submit_cart" method="post">
+          <form action="checkout" method="post">
             <h3>Shopping Cart</h3>
             <ul>
               {% for food in shopping_cart_food %}

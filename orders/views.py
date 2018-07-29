@@ -62,3 +62,7 @@ def order_from_menu(request):
         shopping_cart_food = 'Empty Cart'
 
     return render(request, 'order_food_form.html', {'food_list':food_list, 'shopping_cart_food':shopping_cart_food})
+
+def checkout(request):
+
+    return render(request, 'thankyou.html', {'checkedout':1})
