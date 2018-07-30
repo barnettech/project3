@@ -6,7 +6,7 @@
       <div>
         {% for food in food_list %}
         <div>
-          <input type="text" name="fooditem_{{food.id}}"
+          <input class="food-quantity" type="text" name="fooditem_{{food.id}}"
           minlength="1" maxlength="3" placeholder="enter quantity"/>${{food.price}} <a href="{{ food.get_absolute_url }}">{{ food.title }}</a>
         </div>
         {% endfor %}

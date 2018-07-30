@@ -6,6 +6,10 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import Food, Order, Order_Number
+from django.db import models
+from django.contrib.auth.models import User
+from django import forms
+from .forms import UserCreateForm
 import datetime
 
 # Create your views here.
@@ -16,7 +20,7 @@ def index(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserCreateForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -25,7 +29,7 @@ def signup(request):
             login(request, user)
             return redirect('order')
     else:
-        form = UserCreationForm()
+        form = UserCreateForm()
     return render(request, 'signup.html', {'form': form})
 
 def menu(request):
