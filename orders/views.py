@@ -6,7 +6,6 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import Food, Order, Order_Number
-from .forms import OrderFoodForm
 import datetime
 
 # Create your views here.
@@ -52,18 +51,21 @@ def order_from_menu(request):
             if data:
                 food = Food.objects.get(pk=i)
                 persons_name = request.user.first_name + request.user.last_name
-                O = Order(title=food, username=request.user.username, name=persons_name, phone='888-777-7777', price='9.98', size='Large', food_type='PIZZA', order_number = ON)
+                total_price = food.price * int(data)
+                O = Order(title=food, username=request.user.username, name=persons_name, phone='888-777-7777', price=total_price, size='Large', food_type='PIZZA', order_number = ON)
                 O.save()
                 #shopping_cart_food[food.title] = data
 
     shopping_cart_food = Order.objects.filter(username=request.user.username, order_status='INCOMPLETE')
-    print(shopping_cart_food)
+    cart_total = 0
+    for item in shopping_cart_food:
+        cart_total = cart_total + item.price
     cart_count = Order.objects.filter(username=request.user.username, order_status='INCOMPLETE').count()
     print(cart_count)
     if cart_count < 1:
         shopping_cart_food = 'Empty Cart'
 
-    return render(request, 'order_food_form.html', {'food_list':food_list, 'shopping_cart_food':shopping_cart_food})
+    return render(request, 'order_food_form.html', {'food_list':food_list, 'shopping_cart_food':shopping_cart_food, 'cart_total':cart_total})
 
 def checkout(request):
     shopping_cart = Order.objects.filter(username=request.user.username, order_status='INCOMPLETE').update(order_status='FILLED')

@@ -29,11 +29,13 @@
           <form onsubmit="return validate(this);" action="checkout" method="post">
             {% csrf_token %}
             <h3>Shopping Cart</h3>
-            <ul>
+            <ul id='cart-items'>
               {% if shopping_cart_food != "Empty Cart"  %}
                 {% for food in shopping_cart_food %}
-                  <li>{{food}}</li>
+                  <li>${{food.price}} {{food}}</li>
                 {% endfor %}
+                <div id='cart-total'>Total:  ${{cart_total}}</div>
+               <br/>
                <input id="my-checkout-button" type="submit" value="Checkout" />
               {% else %}
                 Your cart is empty
