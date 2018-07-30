@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+{% block content %}
+    {% if user.is_authenticated and user.get_username == 'admin'%}
+    <h3>EXISTING ORDERS:</h3>
+      <ul>
+      {% for order in orders %}
+        <li>
+          No. {{order.order_number.id}}  Name:  {{order.name}}  Phone:  {{order.phone}} Item: {{order.title}} Price:  ${{order.price}}
+        </li>
+      {% endfor %}
+      </ul>
+
+
+    {% endif %}
+
+
+{% endblock %}

@@ -43,6 +43,11 @@ def menu(request):
         context={'food_list':food_list, 'food_count':food_count},
     )
 
+def view_orders(request):
+   orders=Order.objects.all()
+   return render(request, 'existing-orders.html', {'orders':orders})
+
+
 def order_from_menu(request):
     food_list=Food.objects.all()
     shopping_cart_food = {};
