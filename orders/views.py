@@ -74,7 +74,14 @@ def order_from_menu(request):
     if cart_count < 1:
         shopping_cart_food = 'Empty Cart'
 
-    return render(request, 'order_food_form.html', {'food_list':food_list, 'shopping_cart_food':shopping_cart_food, 'cart_total':cart_total})
+    food_toppings =  ['NONE', 'PEPPERONI', 'pepperoni', 'SAUSAGE', 'sausage', 'MUSHROOMS', 'mushrooms',
+        'ONIONS', 'onions', 'HAM', 'ham', 'CANADIAN BACON', 'canadian bacon', 'PINEAPPLE', 'pineapple',
+        'EGGPLANT', 'egglplant', 'TOMATO & BASIL', 'tomato & basil', 'GREEN PEPPERS', 'green peppers',
+        'HAMBURGER', 'hamburger', 'SPINACH', 'spinach', 'ARTICHOKE', 'artichoke', 'BUFFALO CHICKEN', 'buffalo chicken',
+        'BARBECUE CHICKEN', 'barbecue chicken', 'ANCHOVIES', 'anchovies', 'BLACK OLIVES', 'black olives',
+        'FRESH GARLIC', 'fresh garlic', 'ZUCCHINI', 'zucchini']
+
+    return render(request, 'order_food_form.html', {'food_list':food_list, 'shopping_cart_food':shopping_cart_food, 'food_toppings':food_toppings, 'cart_total':cart_total})
 
 def checkout(request):
     shopping_cart = Order.objects.filter(username=request.user.username, order_status='INCOMPLETE').update(order_status='FILLED')
