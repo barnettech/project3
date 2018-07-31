@@ -36,7 +36,7 @@
             <ul id='cart-items'>
               {% if shopping_cart_food != "Empty Cart"  %}
                 {% for food in shopping_cart_food %}
-                  <li>${{food.price}} {{food}}</li>
+                  <li>${{food.price}} {{food}} {% if food.toppings %} Toppings: {{food.toppings}} {% endif %}</li>
                 {% endfor %}
                 <div id='cart-total'>Total:  ${{cart_total}}</div>
                <br/>

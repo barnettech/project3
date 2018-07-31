@@ -57,11 +57,16 @@ def order_from_menu(request):
         ON.save()
         for i in range(0,len(food_list)):
             data = request.POST.get('fooditem_' + str(i))
+            data_toppings = request.POST.getlist('select_' + str(i))
+            toppings_string = ', '.join(data_toppings)
             if data:
                 food = Food.objects.get(pk=i)
-                persons_name = request.user.first_name + request.user.last_name
+                print(f"first name " + request.user.first_name)
+                persons_name = request.user.first_name + ' ' + request.user.last_name
+                print(f"persons name {persons_name}")
                 total_price = food.price * int(data)
-                O = Order(title=food, username=request.user.username, name=persons_name, phone='888-777-7777', price=total_price, size='Large', food_type='PIZZA', order_number = ON)
+                O = Order(title=food, username=request.user.username, name=persons_name, phone='888-888-8888',
+                  price=total_price, size='Large', food_type='PIZZA', toppings=toppings_string, order_number = ON)
                 O.save()
                 #shopping_cart_food[food.title] = data
 
@@ -74,12 +79,12 @@ def order_from_menu(request):
     if cart_count < 1:
         shopping_cart_food = 'Empty Cart'
 
-    food_toppings =  ['NONE', 'PEPPERONI', 'pepperoni', 'SAUSAGE', 'sausage', 'MUSHROOMS', 'mushrooms',
-        'ONIONS', 'onions', 'HAM', 'ham', 'CANADIAN BACON', 'canadian bacon', 'PINEAPPLE', 'pineapple',
-        'EGGPLANT', 'egglplant', 'TOMATO & BASIL', 'tomato & basil', 'GREEN PEPPERS', 'green peppers',
-        'HAMBURGER', 'hamburger', 'SPINACH', 'spinach', 'ARTICHOKE', 'artichoke', 'BUFFALO CHICKEN', 'buffalo chicken',
-        'BARBECUE CHICKEN', 'barbecue chicken', 'ANCHOVIES', 'anchovies', 'BLACK OLIVES', 'black olives',
-        'FRESH GARLIC', 'fresh garlic', 'ZUCCHINI', 'zucchini']
+    food_toppings =  ['NONE', 'PEPPERONI', 'SAUSAGE', 'MUSHROOMS',
+        'ONIONS', 'HAM', 'CANADIAN BACON', 'PINEAPPLE',
+        'EGGPLANT', 'TOMATO & BASIL', 'GREEN PEPPERS',
+        'HAMBURGER', 'SPINACH', 'ARTICHOKE', 'BUFFALO CHICKEN',
+        'BARBECUE CHICKEN', 'ANCHOVIES', 'BLACK OLIVES',
+        'FRESH GARLIC', 'ZUCCHINI']
 
     return render(request, 'order_food_form.html', {'food_list':food_list, 'shopping_cart_food':shopping_cart_food, 'food_toppings':food_toppings, 'cart_total':cart_total})
 

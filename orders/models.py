@@ -98,12 +98,8 @@ class Order(models.Model):
         ('DINNER', 'dinner platter'),
     )
     food_type = models.CharField(max_length=10, choices=MY_FOOD_TYPES, default='PIZZA')
-    CHOOSE_TOPPINGS = (
-        ('ONE', '1'),
-        ('TWO', '2'),
-        ('THREE', '3'),
-        ('NO', 'no'),
-    )
+
+    toppings = models.CharField(max_length=200)
 
     def __str__(self):
         """
