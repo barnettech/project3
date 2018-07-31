@@ -18,3 +18,8 @@
     background-image: url("images/pinocchios-banner.jpeg");
     padding: 50px;
 }
+
+#stripeform {
+    margin-left: 20px;
+    padding-left: 20px;
+}

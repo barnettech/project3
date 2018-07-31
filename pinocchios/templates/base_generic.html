@@ -30,7 +30,7 @@
         </ul>
         {% if user.is_authenticated and checkedout != 1 %}
         <div class="shopping-cart">
-          <form onsubmit="return validate(this);" action="checkout" method="post">
+          <!--<form onsubmit="return validate(this);" action="checkout" method="post">-->
             {% csrf_token %}
             <h3>Shopping Cart</h3>
             <ul id='cart-items'>
@@ -40,11 +40,23 @@
                 {% endfor %}
                 <div id='cart-total'>Total:  ${{cart_total}}</div>
                <br/>
-               <input id="my-checkout-button" type="submit" value="Checkout" />
+               <input id="my-checkout-button" class="checkout-button" type="submit" value="Checkout Preview" />
               {% else %}
                 Your cart is empty
               {% endif %}
             </ul>
+          <!--</form>-->
+          <form id="stripeform" action="checkout" method="POST">
+            {% csrf_token %}
+            <script
+              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="pk_test_1sWw149PtAAWvuI5dddmmxCT"
+              data-amount={% widthratio cart_total 1 100 %}
+              data-name="Pinocchio’s Pizza"
+              data-description="Example charge"
+              data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+              data-locale="auto">
+            </script>
           </form>
         </div>
         {% endif %}

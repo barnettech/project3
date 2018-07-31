@@ -10,7 +10,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django import forms
 from .forms import UserCreateForm
+import stripe
 import datetime
+import requests
 
 # Create your views here.
 def index(request):
