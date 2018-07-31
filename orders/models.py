@@ -76,7 +76,7 @@ class Order(models.Model):
     order_number = models.ForeignKey(Order_Number, on_delete=models.CASCADE)
     username = models.CharField(max_length=200, default='')
     name = models.CharField(max_length=200, default='')
-    phone = models.CharField(max_length=200, default='')
+    email = models.CharField(max_length=200, default='')
     MY_STATUSES = (
         ('INCOMPLETE', 'incomplete'),
         ('SUBMITTED', 'submitted'),

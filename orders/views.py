@@ -65,7 +65,7 @@ def order_from_menu(request):
                 persons_name = request.user.first_name + ' ' + request.user.last_name
                 print(f"persons name {persons_name}")
                 total_price = food.price * int(data)
-                O = Order(title=food, username=request.user.username, name=persons_name, phone='888-888-8888',
+                O = Order(title=food, username=request.user.username, name=persons_name, email=request.user.email,
                   price=total_price, size='Large', food_type='PIZZA', toppings=toppings_string, order_number = ON)
                 O.save()
                 #shopping_cart_food[food.title] = data
