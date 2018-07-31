@@ -13,3 +13,8 @@
 .site-image {
     padding-left: 40px;
 }
+
+.jumbotron {
+    background-image: url("images/pinocchios-banner.jpeg");
+    padding: 50px;
+}
