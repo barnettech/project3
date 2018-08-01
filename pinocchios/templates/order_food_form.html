@@ -9,7 +9,7 @@
         <div>
           <input class="food-quantity" type="text" name="fooditem_{{food.id}}"
           minlength="1" maxlength="3" placeholder="enter quantity"/>
-          ${{food.price}} <a href="{{ food.get_absolute_url }}">{{ food.title }}</a>
+          ${{food.price}} {{ food.title }}
           {% if food.choose_toppings != 'NO' %}
             {% if food.choose_toppings == 'TWO' or food.choose_toppings == 'THREE' %}
               <select multiple name="select_{{food.id}}">

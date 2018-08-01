@@ -95,11 +95,13 @@ def order_from_menu(request):
         'BARBECUE CHICKEN', 'ANCHOVIES', 'BLACK OLIVES',
         'FRESH GARLIC', 'ZUCCHINI']
 
-    return render(request, 'order_food_form.html', {'food_list':food_list, 'shopping_cart_food':shopping_cart_food, 'food_toppings':food_toppings, 'cart_total':cart_total})
+    return render(request, 'order_food_form.html', {'food_list':food_list,
+      'shopping_cart_food':shopping_cart_food, 'food_toppings':food_toppings, 'cart_total':cart_total})
 
 # this route works with checkout, marking items in your cart
 # as FILLED after checkout.
 def checkout(request):
     # update statement marking ordered items in the cart as FILLED orders.
-    shopping_cart = Order.objects.filter(username=request.user.username, order_status='INCOMPLETE').update(order_status='FILLED')
+    shopping_cart = Order.objects.filter(username=request.user.username,
+      order_status='INCOMPLETE').update(order_status='FILLED')
     return render(request, 'thankyou.html', {'checkedout':1})
