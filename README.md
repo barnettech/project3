@@ -10,6 +10,12 @@ for CS50 Web Programming with Python and JavaScript
 Spin up the app by typing in python manage.py runserver 0.0.0.0:8080
 from within the project 3 folder, or run sh startserver.sh
 
+FYI to test checkout with stripe API, which I integrated with to
+checkout, using their payment gateway, here are a list of fake
+credit cards to use https://stripe.com/docs/testing#cards
+I've been using test visa number 4242 4242 4242 4242 which is on
+this list for testing.
+
 
 ## File Listing
 1.)  In the static directory you'll find index.css for some css rules

@@ -75,7 +75,7 @@ def order_from_menu(request):
                 food = Food.objects.get(pk=i)
                 persons_name = request.user.first_name + ' ' + request.user.last_name
                 total_price = food.price * int(data)
-                O = Order(title=food, username=request.user.username, name=persons_name, email=request.user.email,
+                O = Order(title=food, quantity_ordered=data, username=request.user.username, name=persons_name, email=request.user.email,
                   price=total_price, size='Large', food_type='PIZZA', toppings=toppings_string, order_number = ON)
                 O.save()
     # grab all the items to show in the shopping cart.
