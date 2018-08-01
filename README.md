@@ -14,7 +14,8 @@ FYI to test checkout with stripe API, which I integrated with to
 checkout, using their payment gateway, here are a list of fake
 credit cards to use https://stripe.com/docs/testing#cards
 I've been using test visa number 4242 4242 4242 4242 which is on
-this list for testing.
+this list for testing, any valid date in the future, and any
+three digit value for the 3 digit code seems to work.
 
 
 ## File Listing
