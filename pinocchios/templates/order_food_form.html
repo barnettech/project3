@@ -1,5 +1,6 @@
 {% extends "base_generic.html" %}
 {% block content %}
+    <!-- only show the food menu to the authenticated users -->
     {% if user.is_authenticated %}
       <form action="" method="post">
       {% csrf_token %}
@@ -7,8 +8,8 @@
         {% for food in food_list %}
         <div>
           <input class="food-quantity" type="text" name="fooditem_{{food.id}}"
-          minlength="1" maxlength="3" placeholder="enter quantity"/>${{food.price}} <a href="{{ food.get_absolute_url }}">{{ food.title }}</a>
-          toppings: {{food.choose_toppings}}
+          minlength="1" maxlength="3" placeholder="enter quantity"/>
+          ${{food.price}} <a href="{{ food.get_absolute_url }}">{{ food.title }}</a>
           {% if food.choose_toppings != 'NO' %}
             {% if food.choose_toppings == 'TWO' or food.choose_toppings == 'THREE' %}
               <select multiple name="select_{{food.id}}">
@@ -20,6 +21,18 @@
               {% endfor %}
             </select>
 
+          {% endif %}
+          {% if food.id == 42 or food.id == 43 %}
+            <select multiple name="select_{{food.id}}">
+              <option value="mushrooms">mushrooms</option>
+              <option value="green peppers">green peppers</option>
+              <option value="onions">onions</option>
+            </select>
+          {% endif %}
+          {% if food.type == 'sub' %}
+            <select multiple name="select_{{food.id}}">
+              <option value="extra_cheese">extra cheese</option>
+            </select>
           {% endif %}
         </div>
         <br>

@@ -1,5 +1,6 @@
 from django.db import models
 
+# Model to hold all the food items for the menu.
 class Food(models.Model):
     """
     Model representing a food on the menu (but not a specific copy of a food).
@@ -61,13 +62,16 @@ class Food(models.Model):
         """
         return self.title
 
+# Model to have the one to many order number, each order number
+# can have 1+ orders associated with it.
 class Order_Number(models.Model):
        def __int__(self):
         """
         String for representing the Model object.
         """
         return self.id
-
+# Model to hold items ordered off the menu, associated with
+# an order number.
 class Order(models.Model):
     """
     Model representing the ordered items on the menu.

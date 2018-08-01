@@ -16,6 +16,7 @@
       <div class="col-3 sidebar-left">
         {% block sidebar %}<!-- insert default navigation text for every page -->
         <ul>
+          <!-- show some items only for authenticated users -->
           {% if user.is_authenticated %}
             <li>User: {{ user.get_username }}</li>
             <li><a href="{% url 'order'%}?next={{request.path}}">Menu, Order</a></li>
@@ -28,9 +29,10 @@
             <li><a href="{% url 'signup'%}">Register</a></li>
           {% endif %}
         </ul>
+        <!-- only show the shopping cart items when logged in or
+        not already submitted -->
         {% if user.is_authenticated and checkedout != 1 %}
         <div class="shopping-cart">
-          <!--<form onsubmit="return validate(this);" action="checkout" method="post">-->
             {% csrf_token %}
             <h3>Shopping Cart</h3>
             <ul id='cart-items'>
@@ -45,7 +47,7 @@
                 Your cart is empty
               {% endif %}
             </ul>
-          <!--</form>-->
+          <!-- form to submit to the stripe api -->
           <form id="stripeform" action="checkout" method="POST">
             {% csrf_token %}
             <script

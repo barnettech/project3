@@ -1,4 +1,6 @@
 window.onload=function(){
+  // on page load hide the pay by stripe submit button, so users are
+  // forced to preview their checkout items.
   document.getElementById("stripeform").style.display = 'none';
   // on form submittal present a dialog box to confirm you are ready to checkout.
   document.querySelector('#my-checkout-button').addEventListener('click', function (event) {
@@ -6,6 +8,7 @@ window.onload=function(){
 	validate();
   }, false);
 
+  // function showing preview of your shopping cart.
   function validate() {
     cart_items = document.querySelector("#cart-items").textContent;
     cart_total = document.querySelector("#cart-total").textContent;
